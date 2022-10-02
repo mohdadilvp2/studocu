@@ -250,7 +250,7 @@ class FlashCardInteractive extends Command
      * @param  array  $extraValuesToCheck // Array of extra values to match before checking validation rules
      * @return return
      */
-    public function askWithValidation(string $text, string $field, string $rule, array $extraValuesToCheck = []): string
+    public function askWithValidation(string $text, string $field, string $rule, array $extraValuesToCheck = []): string|null
     {
         $value = $this->ask($text);
         if (in_array($value, $extraValuesToCheck)) {
@@ -315,7 +315,7 @@ class FlashCardInteractive extends Command
             if ($status) {
                 $correctCount++;
             }
-            $table->addRow([$userQuestion->id, $userQuestion->question, UserQuestion::getStatusText($userQuestion->users[0]->status ?? '')]);
+            $table->addRow([$userQuestion->id, $userQuestion->question, UserQuestion::getStatusText($status)]);
         }
         $table->addRow($separator);
         $table->addRow([new TableCell('Percentage of completion', ['colspan' => 2]), $this->getPercentage($correctCount, $totalQuestions)]);
