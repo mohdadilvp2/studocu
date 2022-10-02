@@ -97,7 +97,7 @@ class FlashCardInteractive extends Command
                 $this->createQuestion();
                 break;
             case 2:
-                // Lista all exting questions
+                // List all exting questions
                 $this->listAllQuestions();
                 break;
             case 3:
