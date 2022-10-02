@@ -99,15 +99,13 @@ class FlashCardInteractiveTest extends TestCase
          ->expectsQuestion(FlashCardInteractive::generateMainMenuText(), '3')
          ->expectsOutput(' Enter 0 to go to main menu')
          ->expectsQuestion('Please select a question id', $question->id)
-         ->expectsQuestion($question->question, $question->answer."ddd")
+         ->expectsQuestion($question->question, $question->answer."Incorrect")
          ->expectsOutput('Incorrect')
 
          ->expectsOutput(' Enter 0 to go to main menu')
          ->expectsQuestion('Please select a question id', $question->id)
          ->expectsQuestion($question->question, $question->answer)
          ->expectsOutput('Correct')
-
-
 
          ->expectsOutput(' Enter 0 to go to main menu')
          ->expectsQuestion('Please select a question id', '0')

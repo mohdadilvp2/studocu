@@ -8,6 +8,8 @@ use App\Models\UserQuestion;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Helper\TableSeparator;
+use Illuminate\Support\Facades\Validator;
+
 
 class FlashCardInteractive extends Command
 {
@@ -109,6 +111,7 @@ class FlashCardInteractive extends Command
                 return;
         }
     }
+
     /**
      * Function to list current user stats
      *
@@ -127,7 +130,6 @@ class FlashCardInteractive extends Command
         $this->info("{$correctAnswerPercentage}- % of questions that have a correct answer.");
         $this->showMainMenu();
     }
-
 
     /**
      * Function used to practice questions and check if user answered it correctly
@@ -174,6 +176,7 @@ class FlashCardInteractive extends Command
         }
         $this->practice();
     }
+
     /**
      * Function used to practice questions
      *
@@ -190,6 +193,7 @@ class FlashCardInteractive extends Command
         }
         $this->practiceQuestion($questionId);
     }
+
     /**
      * This function will calulate percentage
      *
@@ -216,6 +220,7 @@ class FlashCardInteractive extends Command
         UserQuestion::where('user_id', $this->uniqueUserId)->delete();
         $this->showMainMenu();
     }
+
     /**
      * This function will list all questions
      *
@@ -229,14 +234,24 @@ class FlashCardInteractive extends Command
         );
         $this->showMainMenu();
     }
-    public function askWithValidation($text, $field, $rule, $extraValuesToCheck = [])
+
+    /**
+     * This function will ask question to user and validate the inputs
+     *
+     * @param  string  $text
+     * @param  string  $field
+     * @param  string  $rule
+     * @param  array  $extraValuesToCheck // Array of extra values to match before checking validation rules
+     * @return return
+     */
+    public function askWithValidation(string $text, string $field, string $rule, array $extraValuesToCheck = []): string
     {
         $value = $this->ask($text);
         if (in_array($value, $extraValuesToCheck)) {
             return $value;
         }
         while (true) {
-            $validator = \Validator::make([
+            $validator = Validator::make([
                 $field => $value
             ], [
                 $field => $rule
@@ -260,13 +275,14 @@ class FlashCardInteractive extends Command
     public function createQuestion(): void
     {
         $question = $this->askWithValidation('Please enter the question ', 'question', 'required|string');
-        $answer = $this->askWithValidation('Please enter the answer ', 'answer', 'required|string');
+        $answer = $this->askWithValidation('Please enter the answer ', 'answer', 'required|string|');
         Question::create([
             'question' => $question,
             'answer' => $answer
         ]);
         $this->showMainMenu();
     }
+
     /**
      * Function to list current user answer stats
      *

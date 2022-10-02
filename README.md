@@ -1,4 +1,4 @@
-# [Interview Assignment]
+# [FLashcard APP]
 
 ----------
 
@@ -56,5 +56,4 @@ You can now access the server at http://localhost:8000
 ----------
 ## Project Description
 
-- Upload your companies.csv and contacts.csv
-- There is command `php artisan process:file_uploads` which will run in every 10 minutes and will pickup new uploads. Then it will process it.
+- To start the command line tool you can run `php artisan flashcard:interactive`. You will see the options to select menu.
