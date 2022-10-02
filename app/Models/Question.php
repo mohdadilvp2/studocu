@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\UserQuestion;
+
 class Question extends Model
 {
     use HasFactory;
@@ -18,7 +19,8 @@ class Question extends Model
         'answer',
     ];
 
-    public static function totalQuestions() {
+    public static function totalQuestions()
+    {
         return self::count();
     }
     public function users()

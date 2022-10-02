@@ -20,7 +20,8 @@ class UserQuestion extends Model
         'status',
         'user_id'
     ];
-    public static function getStatusText($status) {
+    public static function getStatusText($status)
+    {
         return self::STATUS_TEXT_MAPPING[$status] ?? "Not answered";
     }
 }

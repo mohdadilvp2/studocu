@@ -92,19 +92,24 @@ class FlashCardInteractive extends Command
             $menuOption  = $this->ask($menuString);
         }
         switch ($menuOption) {
+                // Create question
             case 1:
                 $this->createQuestion();
                 break;
             case 2:
+                // Lista all exting questions
                 $this->listAllQuestions();
                 break;
             case 3:
+                // Practice
                 $this->practice();
                 break;
             case 4:
+                // Show stats
                 $this->showStats();
                 break;
             case 5:
+                // Reset Practice
                 $this->resetPractice();
                 break;
             case 6:
@@ -171,6 +176,7 @@ class FlashCardInteractive extends Command
                 ];
             }
         }
+        // If $questionAnswerCreate is not empty, we need to insert to array
         if (!empty($questionAnswerCreate)) {
             UserQuestion::create($questionAnswerCreate);
         }
@@ -275,7 +281,7 @@ class FlashCardInteractive extends Command
     public function createQuestion(): void
     {
         $question = $this->askWithValidation('Please enter the question ', 'question', 'required|string');
-        $answer = $this->askWithValidation('Please enter the answer ', 'answer', 'required|string|');
+        $answer = $this->askWithValidation('Please enter the answer ', 'answer', 'required|string|max:50');
         Question::create([
             'question' => $question,
             'answer' => $answer
