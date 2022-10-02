@@ -78,13 +78,17 @@ sail artisan test --env=testing --coverage
 ## Project Description
 
  The command `php artisan flashcard:interactive` should present a main menu with the following actions:
+</br>
 1 . Create a flashcard
+</br>
 The user will be prompted to give a flashcard question and the only answer to that question. The question and the answer should be stored in the database.
 </br>
 2 . List all flashcards
+</br>
 A table listing all the created flashcard questions with the correct answer.
 </br>
 3 . Practice
+</br>
 This is where a user will practice the flashcards that have been added.
 First, show the current progress: The user will be presented with a table listing all questions, and their practice status for each question: Not answered, Correct, Incorrect.
 As a table footer, we want to present the % of completion (all questions vs correctly answered).
@@ -93,15 +97,22 @@ Upon answering, store the answer in the DB and print correct/incorrect.
 Finally, show the first step again (the current progress) and allow the user to keep practicing until they explicitly decide to stop.
 </br>
 4 . Stats
+</br>
 Display the following stats:
+</br>
        - The total amount of questions.
+</br>
        - % of questions that have an answer.
+</br>
        - % of questions that have a correct answer.
 </br>
 5 . Reset
+</br>
 This command should erase all practice progress and allow a fresh start.
 </br>
 6 . Exit
+</br>
 This option will conclude the interactive command.
+</br>
 Note: The program should only exit by choosing the `Exit` option on the main menu (or killing the process)
 </br>
