@@ -29,7 +29,7 @@ class FlashCardInteractive extends Command
      * The mainmenu options
      *
      * @var array
-     */    
+     */
     public static $mainMenu = [
         1 => 'Create a flashcard',
         2 => 'List all flashcards',
@@ -40,7 +40,7 @@ class FlashCardInteractive extends Command
     ];
 
     /**
-     * This is the uniqueId we generate while starting our artisan command, We use this to track user progress 
+     * This is the uniqueId we generate while starting our artisan command, We use this to track user progress
      *
      * @var string
      */
@@ -62,7 +62,7 @@ class FlashCardInteractive extends Command
         $this->showMainMenu();
         return 0;
     }
-    
+
     /**
      * Return main menu option string
      *
@@ -111,7 +111,7 @@ class FlashCardInteractive extends Command
     }
     /**
      * Function to list current user stats
-     * 
+     *
      * @return void
      */
     public function showStats(): void
@@ -127,11 +127,11 @@ class FlashCardInteractive extends Command
         $this->info("{$correctAnswerPercentage}- % of questions that have a correct answer.");
         $this->showMainMenu();
     }
-    
+
 
     /**
      * Function used to practice questions and check if user answered it correctly
-     * 
+     *
      * @param  int  $questionId
      * @return void
      */
@@ -176,14 +176,14 @@ class FlashCardInteractive extends Command
     }
     /**
      * Function used to practice questions
-     * 
+     *
      * @return void
      */
     public function practice(): void
     {
         $this->currentUserQuestionList();
         $this->info(" Enter 0 to go to main menu");
-        $questionId = (int) $this->askWithValidation("Please select a question id","question_id", 'required|integer|exists:questions,id', [0]);
+        $questionId = (int) $this->askWithValidation("Please select a question id", "question_id", 'required|integer|exists:questions,id', [0]);
         if ($questionId == 0) {
             $this->showMainMenu();
             return;
@@ -192,7 +192,7 @@ class FlashCardInteractive extends Command
     }
     /**
      * This function will calulate percentage
-     * 
+     *
      * @param  int  $number
      * @param  int  $total
      * @return int
@@ -229,12 +229,13 @@ class FlashCardInteractive extends Command
         );
         $this->showMainMenu();
     }
-    public function askWithValidation($text, $field, $rule, $extraValuesToCheck = []) {
+    public function askWithValidation($text, $field, $rule, $extraValuesToCheck = [])
+    {
         $value = $this->ask($text);
-        if(in_array($value, $extraValuesToCheck)){
+        if (in_array($value, $extraValuesToCheck)) {
             return $value;
         }
-        while(true) {
+        while (true) {
             $validator = \Validator::make([
                 $field => $value
             ], [
@@ -243,8 +244,7 @@ class FlashCardInteractive extends Command
             if ($validator->fails()) {
                 $this->error($validator->errors()->first($field));
                 $value = $this->ask($text);
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -269,7 +269,7 @@ class FlashCardInteractive extends Command
     }
     /**
      * Function to list current user answer stats
-     * 
+     *
      * @return void
      */
     public function currentUserQuestionList(): void
