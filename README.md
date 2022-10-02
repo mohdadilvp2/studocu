@@ -76,7 +76,7 @@ sail artisan test --env=testing --coverage
 ```
 ----------
 ## Project Description
-
+```
  The command `php artisan flashcard:interactive` should present a main menu with the following actions:
 1 . Create a flashcard
 The user will be prompted to give a flashcard question and the only answer to that question. The question and the answer should be stored in the database.
