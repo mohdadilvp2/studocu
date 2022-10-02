@@ -83,18 +83,6 @@ class FlashCardInteractiveTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function test_stats()
-    {
-
-        $this->artisan('flashcard:interactive')
-            ->expectsQuestion(FlashCardInteractive::generateMainMenuText(), '4')
-            ->expectsOutput(Question::count() . '- The total amount of questions.')
-            ->expectsOutput('0- % of questions that have an answer.')
-            ->expectsOutput('0- % of questions that have a correct answer.')
-            ->expectsQuestion(FlashCardInteractive::generateMainMenuText(), '6')
-            ->assertExitCode(0);
-    }
-
     public function test_practice()
     {
         $question = Question::factory()->create();
@@ -112,6 +100,25 @@ class FlashCardInteractiveTest extends TestCase
 
             ->expectsOutput(' Enter 0 to go to main menu')
             ->expectsQuestion('Please select a question id', '0')
+            ->expectsQuestion(FlashCardInteractive::generateMainMenuText(), '6')
+            ->assertExitCode(0);
+    }
+
+    public function test_stats()
+    {
+        $this->artisan('flashcard:interactive')
+            ->expectsQuestion(FlashCardInteractive::generateMainMenuText(), '4')
+            ->expectsOutput(Question::count() . '- The total amount of questions.')
+            ->expectsOutput('0- % of questions that have an answer.')
+            ->expectsOutput('0- % of questions that have a correct answer.')
+            ->expectsQuestion(FlashCardInteractive::generateMainMenuText(), '6')
+            ->assertExitCode(0);
+        $this->test_practice();
+        $this->artisan('flashcard:interactive')
+            ->expectsQuestion(FlashCardInteractive::generateMainMenuText(), '4')
+            ->expectsOutput(Question::count() . '- The total amount of questions.')
+            ->expectsOutput('100- % of questions that have an answer.')
+            ->expectsOutput('100- % of questions that have a correct answer.')
             ->expectsQuestion(FlashCardInteractive::generateMainMenuText(), '6')
             ->assertExitCode(0);
     }
