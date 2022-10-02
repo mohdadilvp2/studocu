@@ -34,6 +34,7 @@ Run the database migrations (**Set the database connection in .env before migrat
 
     php artisan migrate
 
+    php artisan migrate --env=testing
 Start the local development server
 
     php artisan serve
@@ -46,14 +47,55 @@ You can now access the server at http://localhost:8000
 
 ----------
 
+## Docker (Sail)
 
-## Environment variables
+To install with [Docker](https://www.docker.com) using [Sail](https://laravel.com/docs/9.x/sail), run following commands:
 
-- `.env` - Environment variables can be set in this file
-
-***Note*** : You can quickly set the database information and other variables in this file and have the application fully working.
-
+```
+git clone https://github.com/mohdadilvp2/studocu.git
+cd studocu
+cp .env.example .env
+composer install
+php artisan sail:install
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+sail up
+```
+To migrate db
+```
+sail artisan migrate 
+sail artisan migrate --env=testing
+```
+----------
+## Testing
+```
+php artisan test --env=testing --coverage
+```
+with sail
+```
+sail artisan test --env=testing --coverage
+```
 ----------
 ## Project Description
 
-- To start the command line tool you can run `php artisan flashcard:interactive`. You will see the options to select menu.
+ The command `php artisan flashcard:interactive` should present a main menu with the following actions:
+1 . Create a flashcard
+The user will be prompted to give a flashcard question and the only answer to that question. The question and the answer should be stored in the database.
+2 . List all flashcards
+A table listing all the created flashcard questions with the correct answer.
+3 . Practice
+This is where a user will practice the flashcards that have been added.
+First, show the current progress: The user will be presented with a table listing all questions, and their practice status for each question: Not answered, Correct, Incorrect.
+As a table footer, we want to present the % of completion (all questions vs correctly answered).
+Then, the user will pick the question they want to practice. We should not allow answering questions that are already correct.
+Upon answering, store the answer in the DB and print correct/incorrect.
+Finally, show the first step again (the current progress) and allow the user to keep practicing until they explicitly decide to stop.
+4 . Stats
+Display the following stats:
+       - The total amount of questions.
+       - % of questions that have an answer.
+       - % of questions that have a correct answer.
+5 . Reset
+This command should erase all practice progress and allow a fresh start.
+6 . Exit
+This option will conclude the interactive command.
+Note: The program should only exit by choosing the `Exit` option on the main menu (or killing the process)
