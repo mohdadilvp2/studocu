@@ -296,6 +296,7 @@ class FlashCardInteractive extends Command
      */
     public function currentUserQuestionList(): void
     {
+        // Eager loading
         $userQuestionDeatils = Question::with(array('users' => function ($query) {
             $query->where('user_id', $this->uniqueUserId);
         }))->select(['id', 'question'])->get();
